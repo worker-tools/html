@@ -33,5 +33,15 @@
   "bugs": {
     "url": "https://github.com/worker-utils/html/issues"
   },
-  "homepage": "https://github.com/worker-utils/html#readme"
+  "homepage": "https://github.com/worker-utils/html#readme",
+  "keywords": [
+    "html",
+    "service-worker",
+    "templating",
+    "workers",
+    "streams",
+    "response",
+    "whatwg-streams",
+    "fetch-api"
+  ]
 }
