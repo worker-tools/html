@@ -1,4 +1,4 @@
-export async function* stream2AsyncIterable<T>(stream: ReadableStream<T>): AsyncIterable<T> {
+export async function* streamToAsyncIterable<T>(stream: ReadableStream<T>): AsyncIterable<T> {
   const reader = stream.getReader();
   try {
     while (true) {
@@ -9,7 +9,7 @@ export async function* stream2AsyncIterable<T>(stream: ReadableStream<T>): Async
   } finally { reader.releaseLock() }
 }
 
-export function asyncIterable2Stream<T>(asyncIterable: AsyncIterable<T>): ReadableStream<T> {
+export function asyncIterableToStream<T>(asyncIterable: AsyncIterable<T>): ReadableStream<T> {
   const { readable, writable } = new TransformStream<T, T>();
   (async () => {
     const writer = writable.getWriter();
