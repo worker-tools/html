@@ -1,0 +1,29 @@
+{
+  "name": "@werker/html",
+  "version": "1.0.0",
+  "description": "Generate streaming HTML responses from worker environments such as Cloudflare Workers",
+  "main": "index.js",
+  "files": [
+    "typings",
+    "src",
+    "*.js*",
+    "*.d.ts*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "clean": "rm -f *.d.ts *.js *.js.map *.d.ts.map",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -d",
+    "prepack": "npm run clean && npm run build"
+  },
+  "author": "Florian Klampfer <mail@qwtel.com> (https://qwtel.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "xss": "^1.0.8"
+  }
+}

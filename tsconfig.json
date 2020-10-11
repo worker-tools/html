@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2020", "DOM"],
+    "target": "ES2019",
+    "outDir": ".",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
+  },
+  "include": [
+    "typings/*.d.ts",
+    "src/**/.ts",
+    "src/*.ts"
+  ],
+  "exclude": []
+}
