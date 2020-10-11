@@ -2,6 +2,7 @@
   "compilerOptions": {
     "lib": ["ES2020", "DOM"],
     "target": "ES2019",
+    "moduleResolution": "Node",
     "outDir": ".",
     "allowJs": true,
     "checkJs": true,
