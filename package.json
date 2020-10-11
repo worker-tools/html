@@ -25,5 +25,13 @@
   },
   "dependencies": {
     "xss": "^1.0.8"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/worker-utils/html.git"
+  },
+  "bugs": {
+    "url": "https://github.com/worker-utils/html/issues"
+  },
+  "homepage": "https://github.com/worker-utils/html#readme"
 }
