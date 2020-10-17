@@ -1,4 +1,4 @@
-export async function* streamToAsyncIterable<T>(stream: ReadableStream<T>): AsyncIterable<T> {
+export async function* streamToAsyncIterable<T>(stream: ReadableStream<T>): AsyncIterableIterator<T> {
   const reader = stream.getReader();
   try {
     while (true) {
