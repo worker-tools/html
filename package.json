@@ -1,6 +1,6 @@
 {
   "name": "@werker/html",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "HTML templating and streaming response library for worker environments such as Cloudflare Workers",
   "main": "index.js",
   "files": [
