@@ -2,7 +2,9 @@
   "name": "@werker/html",
   "version": "1.0.4",
   "description": "HTML templating and streaming response library for worker environments such as Cloudflare Workers",
+  "type": "module",
   "main": "index.js",
+  "module": "index.js",
   "files": [
     "src",
     "*.js*",
