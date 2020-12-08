@@ -67,14 +67,14 @@ export function html(strings: TemplateStringsArray, ...args: HTMLContent[]) {
 
 export { html as css }
 
-class UnsafeHTML {
+export class UnsafeHTML {
   value: string;
   constructor(value: string) { this.value = value }
   toString() { return this.value }
   toJSON() { return this.value }
 }
 
-class Fallback {
+export class Fallback {
   content: HTMLContent;
   fallback: HTML | ((e: any) => HTML);
   constructor(content: HTMLContent, fallback: HTML | ((e: any) => HTML)) {
