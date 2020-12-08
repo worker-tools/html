@@ -1,15 +1,15 @@
+import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
 import { aMap } from './iter';
-import { asyncIterableToStream } from './stream-util';
 import { HTML } from './html';
 
-export class HTMLResponse extends Response {
+class TextEncoderStreamHTMLResponse extends Response {
   constructor(html: HTML, init?: ResponseInit) {
     super(asyncIterableToStream(html).pipeThrough(new TextEncoderStream()), init);
     this.headers.set('Content-Type', 'text/html;charset=UTF-8');
   }
 }
 
-export class CFWorkersHTMLResponse extends Response {
+export class MapTextEncodeHTMLResponse extends Response {
   constructor(html: HTML, init?: ResponseInit) {
     const encoder = new TextEncoder();
     const htmlGenerator = aMap((str: string) => encoder.encode(str))(html);
@@ -17,3 +17,9 @@ export class CFWorkersHTMLResponse extends Response {
     this.headers.set('Content-Type', 'text/html;charset=UTF-8');
   }
 }
+
+export const HTMLResponse = typeof TextEncoderStream !== 'undefined'
+  ? TextEncoderStreamHTMLResponse
+  : MapTextEncodeHTMLResponse;
+
+export { MapTextEncodeHTMLResponse as CFWorkersHTMLResponse }
