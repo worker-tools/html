@@ -21,7 +21,9 @@ const h1El = html`<h1>${helloWorld}</h1>`;
 What is known as "partials" in string-based templating libraries are just functions here:
 
 ```ts
-const timeEl = (ts = new Date()) => html`<time datetime="${ts.toISOString()}">${ts.toLocalString()}</time>`;
+const timeEl = (ts = new Date()) => html`
+  <time datetime="${ts.toISOString()}">${ts.toLocalString()}</time>
+`;
 ```
 
 What is knowns as "layouts" are just functions as well:
@@ -32,7 +34,6 @@ const baseLayout = (title: string, content: HTMLContent) => html`
   <html lang="en">
     <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <title>${title}</title>
     </head>
     <body>${content}</body>
@@ -40,7 +41,7 @@ const baseLayout = (title: string, content: HTMLContent) => html`
 `;
 ```
 
-Layouts can "inherit" from each other, again just functions:
+Layouts can "inherit" from each other, again using just functions:
 
 ```ts
 const pageLayout = (title: string, content: HTMLContent) => baseLayout(title, html`
@@ -51,8 +52,8 @@ const pageLayout = (title: string, content: HTMLContent) => baseLayout(title, ht
 `);
 ```
 
-Most likely, many more features of string based templating libraries can be replicated using just functions.
-Most satisfying should be the use of `map` to replace a whole host of looping constructs:
+Many more features of string-based templating libraries can be replicated using functions.
+Most satisfying should be the use of `map` to replace a whole host of custom looping syntax:
 
 ```ts
 html`<ul>${['Foo', 'Bar', 'Baz'].map(x => html`<li>${x}</li>`)}</ul>`;
@@ -106,7 +107,9 @@ function handleRequest(event: FetchEvent) {
   return new HTMLResponse(pageLayout('Hello World!', html`
     <h1>Hello World!</h1>
     ${async () => {
-      const timeStamp = new Date(await fetch('https://time.api/now').then(r => r.text()));
+      const timeStamp = new Date(
+        await fetch('https://time.api/now').then(r => r.text())
+      );
       return html`<p>The current time is ${timeEl(timeStamp)}.</p>`
     }}
   `));
