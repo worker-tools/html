@@ -1,6 +1,7 @@
 # @werker/html
 
-HTML templating and streaming response library for Service Worker-like environments such as Cloudflare Workers.
+[HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like environments such as Cloudflare Workers.
+
 
 ## HTML Templating
 
@@ -8,7 +9,6 @@ Templating is done purely in JavaScript using tagged template strings, inspired 
 
 This library is using the way tagged template strings work to create streaming response bodies on the fly,
 using no special template syntax and giving you the full power of JS for composition. 
-Before we get to [the streaming part](#streaming-responses), here are the basics of templating:
 
 String interpolation works just like regular template strings,
 but all content is sanitized by default.
