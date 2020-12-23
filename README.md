@@ -1,6 +1,6 @@
 # @werker/html
 
-HTML templating and streaming response library for worker environments such as Cloudflare Workers.
+HTML templating and streaming response library for Service Worker-like environments such as Cloudflare Workers.
 
 ## HTML Templating
 
