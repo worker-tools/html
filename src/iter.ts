@@ -1,6 +1,9 @@
 type Awaitable<T> = T | Promise<T>;
 type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
 
+/**
+ * Alternates items from the first and second iterable in the output iterable, until either input runs out of items.
+ */
 export function* interleave<X, Y>(xs: Iterable<X>, ys: Iterable<Y>): IterableIterator<X | Y> {
   const itx = xs[Symbol.iterator]();
   const ity = ys[Symbol.iterator]();
@@ -14,7 +17,10 @@ export function* interleave<X, Y>(xs: Iterable<X>, ys: Iterable<Y>): IterableIte
   }
 }
 
-export async function* aInterleaveFlattenSecond<X, Y>(xs: Iterator<X>, ys: Iterable<AsyncIterable<Y>>): AsyncIterableIterator<X | Y> {
+/**
+ * It's like interleave, but will flatten items of the second (async) iterable.
+ */
+export async function* aInterleaveFlattenSecond<X, Y>(xs: Iterable<X>, ys: Iterable<AsyncIterable<Y>>): AsyncIterableIterator<X | Y> {
   const itx = xs[Symbol.iterator]();
   const ity = ys[Symbol.iterator]();
   while (true) {

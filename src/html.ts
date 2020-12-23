@@ -1,4 +1,5 @@
 import { filterXSS } from 'xss';
+// import { aInterleaveFlattenSecond, map } from './iter';
 
 type Repeatable<T> = T | T[];
 type Awaitable<T> = T | Promise<T>;
@@ -13,7 +14,7 @@ async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator
   const x = await content;
   if (Array.isArray(x)) for (const xi of x) yield* unpackContent(xi);
   else if (x instanceof Unpackable) yield* x;
-  else yield filterXSS(x as string);
+  else yield filterXSS(x as string); // relying on string coercion for primitives within the xss module here
 }
 
 async function* unpack(content: HTMLContent): AsyncIterableIterator<string> {
@@ -53,8 +54,8 @@ export class HTML extends Unpackable {
     }
   }
 
-  // [Symbol.asyncIterator]() {
-  //   return aInterleaveFlattenSecond(this.strings, map(aHelper)(this.args));
+  // async *[Symbol.asyncIterator]() {
+  //   return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
   // }
 }
 
@@ -91,6 +92,8 @@ export function html(strings: TemplateStringsArray, ...args: HTMLContent[]) {
   return new HTML(strings, args);
 }
 
+// For the purpose of generating strings, there is no difference between html and css
+// so we can export this alias here to potentially help with syntax highlighting.
 export { html as css }
 
 export function fallback(content: HTMLContent, fallback: HTML | ((e: any) => HTML)) {

@@ -26,7 +26,7 @@ const timeEl = (ts = new Date()) => html`
 `;
 ```
 
-What is knowns as "layouts" are just functions as well:
+What is known as "layouts" are just functions as well:
 
 ```ts
 const baseLayout = (title: string, content: HTMLContent) => html`
@@ -47,7 +47,7 @@ Layouts can "inherit" from each other, again using just functions:
 const pageLayout = (title: string, content: HTMLContent) => baseLayout(title, html`
   <main>
     ${content}
-    <footer><small>Powered by @werker/html</small></footer>
+    <footer>Powered by @werker/html</footer>
   </main>
 `);
 ```
