@@ -1,5 +1,5 @@
 import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
-import { aMap } from './iter';
+import { aMap, aBuffer } from './iter';
 import { HTML } from './html';
 
 export class HTMLResponse extends Response {
@@ -13,11 +13,25 @@ export class HTMLResponse extends Response {
       const textEncoderGenerator = aMap((str: string) => encoder.encode(str));
       super(asyncIterableToStream(textEncoderGenerator(html)), init);
     }
-    // Since this class is for HTML responses  and `TextEncoder` only supports UTF-8, 
+    // Since this class is for HTML responses only, and `TextEncoder` only supports UTF-8, 
     // we can set this header reliably:
     this.headers.set('Content-Type', 'text/html;charset=UTF-8');
   }
 }
 
-/** @deprecated Keep around for backwards compatibility */
+/** @deprecated You can now use HTMLResponse in Cloudflare Workers */
 export class CFWorkersHTMLResponse extends HTMLResponse {}
+
+/**
+ * If for any reason you don't want to use streaming response bodies, 
+ * you can use this class instead, which will buffer the entire body before releasing it to the network.
+ * Note that headers will still be sent immediately.
+ */
+export class BufferedHTMLResponse extends Response {
+  constructor(html: HTML, init?: ResponseInit) {
+    const bufferedHTML = aBuffer(html);
+    const textEncoderGenerator = aMap((str: string) => new TextEncoder().encode(str));
+    super(asyncIterableToStream(textEncoderGenerator(bufferedHTML)), init);
+    this.headers.set('Content-Type', 'text/html;charset=UTF-8');
+  }
+}

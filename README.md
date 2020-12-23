@@ -120,6 +120,7 @@ Note that there are some subtle differences here (these follow from the way asyn
 - The initial response will include headers and html up to and including `<h1>Hello World!</h1>`
 - The time API request will not be sent until the headers and html up to and including `<h1>Hello World!</h1>` have hit the wire.
 
+If for any reason you don't want to use streaming response bodies, you can import the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
 You can combine this library with tools from the [@werker family of tools](https://github.com/worker-utils) such as `@werker/response-creators`:

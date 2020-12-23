@@ -46,3 +46,9 @@ export function aMap<A, B>(f: (a: A) => Awaitable<B>) {
 }
 
 export const join = (xs: Iterable<string>) => [...xs].join('');
+
+export async function* aBuffer(forAwaitable: ForAwaitable<string>): AsyncIterableIterator<string> {
+  const chunks = [];
+  for await (const x of forAwaitable) chunks.push(x);
+  yield chunks.join('');
+}
