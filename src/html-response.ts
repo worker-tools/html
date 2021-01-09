@@ -1,5 +1,5 @@
 import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
-import { aMap, aBuffer } from './iter';
+import { aMap, aJoin } from './iter';
 import { HTML } from './html';
 
 export class HTMLResponse extends Response {
@@ -29,7 +29,7 @@ export class CFWorkersHTMLResponse extends HTMLResponse {}
  */
 export class BufferedHTMLResponse extends Response {
   constructor(html: HTML, init?: ResponseInit) {
-    const bufferedHTML = aBuffer(html);
+    const bufferedHTML = aJoin(html);
     const textEncoderGenerator = aMap((str: string) => new TextEncoder().encode(str));
     super(asyncIterableToStream(textEncoderGenerator(bufferedHTML)), init);
     this.headers.set('Content-Type', 'text/html;charset=UTF-8');

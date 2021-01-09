@@ -1,5 +1,5 @@
 type Awaitable<T> = T | Promise<T>;
-type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
+type ForOfAwaitable<T> = Iterable<T> | AsyncIterable<T>;
 
 /**
  * Alternates items from the first and second iterable in the output iterable, until either input runs out of items.
@@ -40,15 +40,17 @@ export function map<A, B>(f: (a: A) => B) {
 }
 
 export function aMap<A, B>(f: (a: A) => Awaitable<B>) {
-  return async function* (forAwaitable: ForAwaitable<A>): AsyncIterableIterator<B> {
-    for await (const x of forAwaitable) yield f(x);
+  return async function* (iterable: ForOfAwaitable<A>): AsyncIterableIterator<B> {
+    for await (const x of iterable) yield f(x);
   };
 }
 
-export const join = (xs: Iterable<string>) => [...xs].join('');
+export function* join(iterable: Iterable<string>): IterableIterator<string> {
+  yield [...iterable].join('');
+}
 
-export async function* aBuffer(forAwaitable: ForAwaitable<string>): AsyncIterableIterator<string> {
+export async function* aJoin(iterable: ForOfAwaitable<string>): AsyncIterableIterator<string> {
   const chunks = [];
-  for await (const x of forAwaitable) chunks.push(x);
+  for await (const x of iterable) chunks.push(x);
   yield chunks.join('');
 }

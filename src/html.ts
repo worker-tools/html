@@ -93,8 +93,8 @@ export function html(strings: TemplateStringsArray, ...args: HTMLContent[]) {
 }
 
 // For the purpose of generating strings, there is no difference between html and css
-// so we can export this alias here to potentially help with syntax highlighting.
-export { html as css }
+// so we can export this alias here to help with syntax highlighting and avoid confusion.
+export { html as css, html as js }
 
 export function fallback(content: HTMLContent, fallback: HTML | ((e: any) => HTML)) {
   return new Fallback(content, fallback);
