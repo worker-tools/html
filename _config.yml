@@ -1,0 +1,179 @@
+url:                   https://worker-utils.github.io
+baseurl:               '/html'
+
+lang:                  en
+title:                 "@werker/html"
+tagline:               HTML templating and streaming response library
+description:           >
+  HTML templating and streaming response library 
+  for Service Worker-like environments such as Cloudflare Workers.
+
+# keywords:
+#   - uuid
+#   - class
+#   - uint8array
+#   - typedarray
+#   - binary
+
+clap_button: false
+
+logo:                  assets/img/logo_d.png
+favicon:               assets/img/werker.png
+apple_touch_icon:      assets/img/werker.png
+
+author:
+  name:                Florian Klampfer
+  email:               mail@qwtel.com
+  social:
+    github:            https://github.com/worker-utils/html
+    npm:               https://www.npmjs.com/package/@werker/html
+
+menu:
+  - title:             LICENSE
+    url:              /LICENSE/
+  - title:             CHANGELOG
+    url:              /CHANGELOG/
+
+legal:
+  - title:             LICENSE
+    url:              /LICENSE/
+  - title:             CHANGELOG
+    url:              /CHANGELOG/
+
+copyright:             © 2021. All rights reserved.
+
+permalink:             /:categories/:year-:month-:day-:title/
+
+collections:
+  featured_categories:
+    permalink:         /:name/
+    output:            true
+  featured_tags:
+    permalink:         /tag-:name/
+    output:            true
+
+theme:                 jekyll-theme-hydejack
+
+google_fonts:          false
+font:                  false
+font_heading:          false
+font_code:             false
+ 
+accent_image:
+  background:          '#999'
+  overlay:             false
+accent_color:          '#999'
+theme_color:           '#999'
+
+defaults:
+  - scope:
+      path:            README
+    values:
+      layout:          welcome
+  - scope:
+      path:            CHANGELOG
+    values:
+      layout:          legal
+  - scope:
+      path:            LICENSE
+    values:
+      layout:          legal
+  - scope:
+      path:            assets/
+    values:
+      sitemap:         false
+  - scope:
+      path:            licenses/
+    values:
+      layout:          legal
+      sitemap:         false
+  - scope:
+      type:            featured_categories
+    values:
+      seo:
+        type:          WebPage
+  - scope:
+      type:            featured_tags
+    values:
+      seo:
+        type:          WebPage
+
+kramdown:
+  math_engine:         mathjax
+  math_engine_opts:    {}
+  footnote_backlink:   '&#x21a9;&#xfe0e;'
+
+
+hydejack:
+  post_addons:         [about, newsletter, related, random, comments]
+  project_addons:      [about, newsletter, other, comments]
+  no_mark_external:    true
+  no_push_state:       false
+  no_drawer:           false
+  no_navbar:           false
+  no_search:           true
+  no_inline_css:       false
+  no_page_style:       false
+  no_break_layout:     true
+  no_toc:              false
+  no_third_column:     false
+  no_large_headings:   false
+  no_structured_data:  false
+  no_theme_color:      false
+  use_lsi:             true
+  cookies_banner:      false
+  advertise:           true
+  hide_dates:          false
+  dark_mode:
+    always:            false
+    dynamic:           true
+    icon:              true
+  offline:
+    enabled:           false
+    cache_version:     7
+    precache_assets:
+      - /assets/img/swipe.svg
+
+exclude:
+  - .jekyll-cache
+  - .sass-cache
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - wrangler.toml
+include:
+  - .well-known
+  - LICENSE.md
+
+plugins:
+  # - jekyll-paginate
+  - jekyll-default-layout
+  - jekyll-feed
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-redirect-from
+  - jekyll-relative-links
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-titles-from-headings
+  - jekyll-include-cache
+  - jekyll-last-modified-at
+
+optional_front_matter:
+  remove_originals:    true
+readme_index:
+  remove_originals:    true
+  with_frontmatter:    true
+relative_links:
+  collections:         true
+titles_from_headings:
+  strip_title:         true
+  collections:         true
+compress_html:
+  comments:            ["<!-- ", " -->"]
+  clippings:           all
+  endings:             all
+  ignore:
+    envs:              [development]
+sass:
+  style:               compressed

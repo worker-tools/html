@@ -4,3 +4,10 @@ node_modules
 /*.js
 /*.js.map
 /*.d.ts.map
+vendor/bundle
+.bundle
+Gemfile.lock
+_site
+build
+dist
+.jekyll-cache
