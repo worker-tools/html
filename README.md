@@ -2,8 +2,6 @@
 
 [HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like environments such as Cloudflare Workers.
 
-* Table of Contents
-{:toc .large-only}
 
 ## HTML Templating
 
