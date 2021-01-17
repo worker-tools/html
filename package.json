@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/worker-utils/html.git"
+    "url": "git+https://github.com/worker-tools/html.git"
   },
   "bugs": {
-    "url": "https://github.com/worker-utils/html/issues"
+    "url": "https://github.com/worker-tools/html/issues"
   },
-  "homepage": "https://github.com/worker-utils/html#readme",
+  "homepage": "https://github.com/worker-tools/html#readme",
   "keywords": [
     "html",
     "service-worker",

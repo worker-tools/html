@@ -123,7 +123,7 @@ Note that there are some subtle differences here (these follow from the way asyn
 If for any reason you don't want to use streaming response bodies, you can import the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
-You can combine this library with tools from the [@werker family of tools](https://github.com/worker-utils) such as `@werker/response-creators`:
+You can combine this library with tools from the [@werker family of tools](https://github.com/worker-tools) such as `@werker/response-creators`:
 
 ```ts
 import { internalServerError } from '@werker/response-creators';
