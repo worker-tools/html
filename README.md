@@ -1,4 +1,4 @@
-# @werker/html
+# @worker-tools/html
 
 [HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like environments such as Cloudflare Workers.
 
@@ -47,7 +47,7 @@ Layouts can "inherit" from each other, again using just functions:
 const pageLayout = (title: string, content: HTMLContent) => baseLayout(title, html`
   <main>
     ${content}
-    <footer>Powered by @werker/html</footer>
+    <footer>Powered by @worker-tools/html</footer>
   </main>
 `);
 ```
@@ -100,7 +100,7 @@ function handleRequest(event: FetchEvent) {
 }
 ```
 
-While there's ways around the lack of async/await in the above example (namely IIAFEs), @werker/html supports passing async functions as html content directly:
+While there's ways around the lack of async/await in the above example (namely IIAFEs), @worker-tools/html supports passing async functions as html content directly:
 
 ```ts
 function handleRequest(event: FetchEvent) {
@@ -123,10 +123,10 @@ Note that there are some subtle differences here (these follow from the way asyn
 If for any reason you don't want to use streaming response bodies, you can import the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
-You can combine this library with tools from the [@werker family of tools](https://github.com/worker-tools) such as `@werker/response-creators`:
+You can combine this library with tools from the [@worker-tools family of tools](https://github.com/worker-tools) such as `@worker-tools/response-creators`:
 
 ```ts
-import { internalServerError } from '@werker/response-creators';
+import { internalServerError } from '@worker-tools/response-creators';
 
 function handleRequest(event: FetchEvent) {
   return new HTMLResponse(
@@ -136,6 +136,6 @@ function handleRequest(event: FetchEvent) {
 }
 ```
 
-You can also see the [Clap Button Worker](https://github.com/getclaps/worker) source code for an example of how to build an entire web app on the edge using Cloudflare Workers and @werker tools, including @werker/html.
+You can also see the [Clap Button Worker](https://github.com/getclaps/worker) source code for an example of how to build an entire web app on the edge using Cloudflare Workers and @worker-tools tools, including @worker-tools/html.
 
 Finally, you can read [The Joys and Perils of Writing Plain Old Web Apps](https://qwtel.com/posts/software/the-joys-and-perils-of-writing-plain-old-web-apps/) for a personal account of building web apps in a Web 2.0 way. 
