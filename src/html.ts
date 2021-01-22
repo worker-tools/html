@@ -1,4 +1,4 @@
-import { filterXSS } from 'xss';
+import { escapeHtml } from './escape-html';
 // import { aInterleaveFlattenSecond, map } from './iter';
 
 type Repeatable<T> = T | T[];
@@ -14,7 +14,7 @@ async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator
   const x = await content;
   if (Array.isArray(x)) for (const xi of x) yield* unpackContent(xi);
   else if (x instanceof Unpackable) yield* x;
-  else yield filterXSS(x as string); // relying on string coercion for primitives within the xss module here
+  else yield escapeHtml(x);
 }
 
 async function* unpack(content: HTMLContent): AsyncIterableIterator<string> {
