@@ -1,8 +1,10 @@
 import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
-import { aMap, aJoin } from './iter';
+import { aMap, aJoin, promiseToAsyncIterable } from './iter';
 import { HTML } from './html';
 
 export class HTMLResponse extends Response {
+  static contentType = 'text/html;charset=UTF-8';
+
   constructor(html: HTML, init?: ResponseInit) {
     if (typeof TextEncoderStream !== 'undefined') {
       super(asyncIterableToStream(html).pipeThrough(new TextEncoderStream()), init);
@@ -15,7 +17,7 @@ export class HTMLResponse extends Response {
     }
     // Since this class is for HTML responses only, and `TextEncoder` only supports UTF-8, 
     // we can set this header reliably:
-    this.headers.set('Content-Type', 'text/html;charset=UTF-8');
+    this.headers.set('Content-Type', HTMLResponse.contentType);
   }
 }
 
@@ -28,10 +30,11 @@ export class CFWorkersHTMLResponse extends HTMLResponse {}
  * Note that headers will still be sent immediately.
  */
 export class BufferedHTMLResponse extends Response {
+  static contentType = 'text/html;charset=UTF-8';
+
   constructor(html: HTML, init?: ResponseInit) {
-    const bufferedHTML = aJoin(html);
-    const textEncoderGenerator = aMap((str: string) => new TextEncoder().encode(str));
-    super(asyncIterableToStream(textEncoderGenerator(bufferedHTML)), init);
-    this.headers.set('Content-Type', 'text/html;charset=UTF-8');
+    const bufferedHTML = aJoin(html).then(str => new TextEncoder().encode(str));
+    super(asyncIterableToStream(promiseToAsyncIterable(bufferedHTML)), init);
+    this.headers.set('Content-Type', BufferedHTMLResponse.contentType);
   }
 }

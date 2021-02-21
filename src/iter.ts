@@ -45,12 +45,16 @@ export function aMap<A, B>(f: (a: A) => Awaitable<B>) {
   };
 }
 
-export function* join(iterable: Iterable<string>): IterableIterator<string> {
-  yield [...iterable].join('');
+export function join(iterable: Iterable<string>): string {
+  return [...iterable].join('');
 }
 
-export async function* aJoin(iterable: ForOfAwaitable<string>): AsyncIterableIterator<string> {
+export async function aJoin(iterable: ForOfAwaitable<string>): Promise<string> {
   const chunks = [];
   for await (const x of iterable) chunks.push(x);
-  yield chunks.join('');
+  return chunks.join('');
+}
+
+export async function* promiseToAsyncIterable<T>(promise: Promise<T>): AsyncIterableIterator<T> {
+  yield await promise;
 }
