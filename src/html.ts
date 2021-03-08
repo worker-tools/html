@@ -4,7 +4,7 @@ import { escapeHtml } from './escape-html';
 type Repeatable<T> = T | T[];
 type Awaitable<T> = T | Promise<T>;
 type Callable<T> = T | (() => T);
-type Primitive = undefined | boolean | number | string | BigInt | Symbol;
+type Primitive = undefined | boolean | number | string | bigint | symbol;
 
 type Renderable = null | Primitive | HTML | UnsafeHTML | Fallback;
 type HTMLContentStatic = Repeatable<Awaitable<Repeatable<Renderable>>>;
