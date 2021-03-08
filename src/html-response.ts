@@ -1,6 +1,6 @@
+import '../vendor/text-encode-transform.js'
 import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
 
-import './vendor/text-encode-transform.js'
 import { aJoin, promiseToAsyncIterable } from './iter';
 import { HTML } from './html';
 
