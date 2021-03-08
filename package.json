@@ -7,6 +7,7 @@
   "module": "index.js",
   "files": [
     "src",
+    "vendor",
     "*.js*",
     "*.d.ts*"
   ],
@@ -15,7 +16,7 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "rm -f *.d.ts *.js *.js.map *.d.ts.map",
+    "clean": "rm -rf *.d.ts *.js *.js.map *.d.ts.map vendor",
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "tsc -d",
     "prepack": "npm run clean && npm run build"
