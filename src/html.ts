@@ -1,19 +1,34 @@
 import { escapeHtml } from './escape-html';
 // import { aInterleaveFlattenSecond, map } from './iter';
 
-type Repeatable<T> = T | T[];
-type Awaitable<T> = T | Promise<T>;
-type Callable<T> = T | (() => T);
 type Primitive = undefined | boolean | number | string | bigint | symbol;
+type Callable<T> = T | (() => T);
+
+type Unpackable<T> =
+  | T 
+  | Iterable<T> 
+  | Promise<T> 
+  | Promise<Iterable<T>> 
+  | Promise<Iterable<Promise<T>>>
+  | AsyncIterable<T>
+  | Promise<AsyncIterable<T>>
 
 type Renderable = null | Primitive | HTML | UnsafeHTML | Fallback;
-type HTMLContentStatic = Repeatable<Awaitable<Repeatable<Renderable>>>;
+type HTMLContentStatic = Unpackable<Renderable>;
 export type HTMLContent = Callable<HTMLContentStatic>;
+
+const isIterable = <T>(x?: unknown): x is (object & Iterable<T>) => 
+  typeof x === 'object' && x != null && Symbol.iterator in x;
+
+const isAsyncIterable = <T>(x?: unknown): x is (object & AsyncIterable<T>) => 
+  typeof x === 'object' && x != null && Symbol.asyncIterator in x;
 
 async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator<string> {
   const x = await content;
-  if (Array.isArray(x)) for (const xi of x) yield* unpackContent(xi);
-  else if (x instanceof Unpackable) yield* x;
+  if (x == null) {/* noop */}
+  else if (x instanceof AbstractHTML) yield* x;
+  else if (isIterable(x)) for (const xi of x) yield* unpackContent(xi);
+  else if (isAsyncIterable(x)) for await (const xi of x) yield* unpackContent(xi);
   else yield escapeHtml(x);
 }
 
@@ -26,11 +41,11 @@ async function* unpack(content: HTMLContent): AsyncIterableIterator<string> {
   }
 }
 
-abstract class Unpackable {
+export abstract class AbstractHTML {
   abstract [Symbol.asyncIterator](): AsyncIterableIterator<string>;
 }
 
-export class HTML extends Unpackable {
+export class HTML extends AbstractHTML {
   strings: TemplateStringsArray;
   args: HTMLContent[];
 
@@ -44,11 +59,11 @@ export class HTML extends Unpackable {
     const stringsIt = this.strings[Symbol.iterator]();
     const argsIt = this.args[Symbol.iterator]();
     while (true) {
-      const { done: stringDone, value: string } = stringsIt.next();
+      const { done: stringDone, value: string } = stringsIt.next() as IteratorYieldResult<string>;
       if (stringDone) break;
       else yield string;
 
-      const { done: argDone, value: arg } = argsIt.next();
+      const { done: argDone, value: arg } = argsIt.next() as IteratorYieldResult<HTMLContent>;
       if (argDone) break;
       else yield* unpack(arg);
     }
@@ -59,7 +74,7 @@ export class HTML extends Unpackable {
   // }
 }
 
-export class UnsafeHTML extends Unpackable {
+export class UnsafeHTML extends AbstractHTML {
   value: string;
   constructor(value: string) { super(); this.value = value }
   async *[Symbol.asyncIterator]() { yield this.value }
@@ -67,7 +82,7 @@ export class UnsafeHTML extends Unpackable {
   toJSON() { return this.value }
 }
 
-export class Fallback extends Unpackable {
+export class Fallback extends AbstractHTML {
   content: HTMLContent;
   fallback: HTML | ((e: any) => HTML);
 
