@@ -20,18 +20,20 @@
     "access": "public"
   },
   "scripts": {
-    "clean": "rm -f *.d.ts *.js *.js.map *.d.ts.map",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "postinstall": "shx ls index.js >> /dev/null 2>&1 || npm run build",
+    "clean": "shx rm -f *.d.ts *.js *.js.map *.d.ts.map",
+    "test": "shx echo \"Error: no test specified\" && shx exit 0",
     "build": "tsc -d",
     "prepack": "npm run clean && npm run build"
   },
   "author": "Florian Klampfer <mail@qwtel.com> (https://qwtel.com/)",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.0.3"
+    "shx": "^0.3.3",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
-    "whatwg-stream-to-async-iter": "^0.1.0"
+    "whatwg-stream-to-async-iter": "github:qwtel/whatwg-stream-to-async-iter"
   },
   "repository": {
     "type": "git",
