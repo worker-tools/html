@@ -7,17 +7,23 @@ if (!('TextEncoderStream' in self)) {
     }
   }
 
-  let t: TES;
   class JSTextEncoderStream extends TransformStream {
     #t: TES;
+    // @ts-ignore
     constructor() {
-      super(t = new TES());
+      let t = new TES();
+      super(t);
       this.#t = t;
     }
     get encoding() { return this.#t.encoder.encoding }
   }
 
-  self.TextEncoderStream = JSTextEncoderStream;
+  Object.defineProperty(self, 'TextEncoderStream', {
+    configurable: false,
+    enumerable: false,
+    writable: false,
+    value: JSTextEncoderStream,
+  });
 }
 
 if (!('TextDecoderStream' in self)) {
@@ -35,11 +41,12 @@ if (!('TextDecoderStream' in self)) {
     }
   }
 
-  let t: TDS;
   class JSTextDecoderStream extends TransformStream {
     #t: TDS;
+    // @ts-ignore
     constructor(encoding = 'utf-8', { ...options } = {}) {
-      super(t = new TDS(encoding, options));
+      let t = new TDS(encoding, options);
+      super(t);
       this.#t = t;
     }
     get encoding() { return this.#t.decoder.encoding }
@@ -47,5 +54,10 @@ if (!('TextDecoderStream' in self)) {
     get ignoreBOM() { return this.#t.decoder.ignoreBOM }
   }
 
-  self.TextDecoderStream = JSTextDecoderStream;
+  Object.defineProperty(self, 'TextDecoderStream', {
+    configurable: false,
+    enumerable: false,
+    writable: false,
+    value: JSTextDecoderStream,
+  });
 }
