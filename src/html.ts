@@ -13,30 +13,40 @@ type Unpackable<T> =
   | AsyncIterable<T>
   | Promise<AsyncIterable<T>>
 
-type Renderable = null | Primitive | HTML | UnsafeHTML | Fallback;
+type Renderable = null | Exclude<Primitive, symbol> | HTML | UnsafeHTML | Fallback;
 type HTMLContentStatic = Unpackable<Renderable>;
 export type HTMLContent = Callable<HTMLContentStatic>;
 
 const isIterable = <T>(x?: unknown): x is (object & Iterable<T>) => 
-  typeof x === 'object' && x != null && Symbol.iterator in x;
+  typeof x === 'object' && x !== null && Symbol.iterator in x;
 
 const isAsyncIterable = <T>(x?: unknown): x is (object & AsyncIterable<T>) => 
-  typeof x === 'object' && x != null && Symbol.asyncIterator in x;
+  typeof x === 'object' && x !== null && Symbol.asyncIterator in x;
 
 async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator<string> {
   const x = await content;
-  if (x == null) {/* noop */}
-  else if (x instanceof AbstractHTML) yield* x;
-  else if (isIterable(x)) for (const xi of x) yield* unpackContent(xi);
-  else if (isAsyncIterable(x)) for await (const xi of x) yield* unpackContent(xi);
-  else yield escapeHtml(x);
+  if (x == null || x === '') {
+    yield ' ';
+  } else if (x instanceof AbstractHTML) {
+    yield* x;
+  } else if (isIterable(x)) {
+    for (const xi of x) {
+      yield* unpackContent(xi);
+    }
+  } else if (isAsyncIterable(x)) {
+    for await (const xi of x) {
+      yield* unpackContent(xi);
+    }
+  } else {
+    yield escapeHtml(x);
+  }
 }
 
 async function* unpack(content: HTMLContent): AsyncIterableIterator<string> {
   try {
     yield* unpackContent(typeof content === 'function' ? content() : content);
   } catch (err) {
-    if (err instanceof HTML) yield* err;
+    if (err instanceof AbstractHTML) yield* err;
     else throw err;
   }
 }
@@ -76,7 +86,7 @@ export class HTML extends AbstractHTML {
 
 export class UnsafeHTML extends AbstractHTML {
   value: string;
-  constructor(value: string) { super(); this.value = value }
+  constructor(value: string) { super(); this.value = value || ' ' }
   async *[Symbol.asyncIterator]() { yield this.value }
   toString() { return this.value }
   toJSON() { return this.value }
