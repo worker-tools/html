@@ -16,14 +16,14 @@ const matchHtmlRegExp = /["'&<>]/;
  * @public
  */
 
-export function escapeHtml(string: any): string {
-  const str = "" + string;
-  const match = matchHtmlRegExp.exec(str);
+export function escapeHtml(string: unknown): string {
+  const match = matchHtmlRegExp.exec(string as string);
 
   if (!match) {
-    return str;
+    return '' + string;
   }
 
+  const str = match.input;
   let escape;
   let html = "";
   let index = 0;
