@@ -7,11 +7,16 @@ type Callable<T> = T | (() => T);
 type Unpackable<T> =
   | T 
   | Iterable<T> 
+  | Iterable<Promise<T>>
   | Promise<T> 
   | Promise<Iterable<T>> 
   | Promise<Iterable<Promise<T>>>
   | AsyncIterable<T>
+  | AsyncIterable<Iterable<T>>
+  | AsyncIterable<Iterable<Promise<T>>>
   | Promise<AsyncIterable<T>>
+  | Promise<AsyncIterable<Iterable<T>>>
+  | Promise<AsyncIterable<Iterable<Promise<T>>>>
 
 type Renderable = null | Exclude<Primitive, symbol> | HTML | UnsafeHTML | Fallback;
 type HTMLContentStatic = Unpackable<Renderable>;
@@ -113,6 +118,8 @@ export class Fallback extends AbstractHTML {
   }
 }
 
+export function html(strings: TemplateStringsArray, ...args: HTMLContent[]): HTML;
+export function html(strings: TemplateStringsArray, ...args: any[]): HTML;
 export function html(strings: TemplateStringsArray, ...args: HTMLContent[]) {
   return new HTML(strings, args);
 }
@@ -121,6 +128,8 @@ export function html(strings: TemplateStringsArray, ...args: HTMLContent[]) {
 // so we can export this alias here to help with syntax highlighting and avoid confusion.
 export { html as css, html as js }
 
+export function fallback(content: HTMLContent, fallback: HTML | ((e: any) => HTML)): Fallback;
+export function fallback(content: any, fallback: HTML | ((e: any) => HTML)): Fallback;
 export function fallback(content: HTMLContent, fallback: HTML | ((e: any) => HTML)) {
   return new Fallback(content, fallback);
 }
