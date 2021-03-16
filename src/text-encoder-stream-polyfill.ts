@@ -7,7 +7,7 @@ if (!('TextEncoderStream' in self)) {
     }
   }
 
-  class JSTextEncoderStream extends TransformStream {
+  class JSTextEncoderStream extends TransformStream<string, Uint8Array> {
     #t: TES;
     // @ts-ignore
     constructor() {
@@ -41,7 +41,7 @@ if (!('TextDecoderStream' in self)) {
     }
   }
 
-  class JSTextDecoderStream extends TransformStream {
+  class JSTextDecoderStream extends TransformStream<Uint8Array, string> {
     #t: TDS;
     // @ts-ignore
     constructor(encoding = 'utf-8', { ...options } = {}) {
