@@ -7,11 +7,12 @@
 
 Templating is done purely in JavaScript using tagged template strings, inspired by [hyperHTML](https://github.com/WebReflection/hyperhtml) and [lit-html](https://github.com/polymer/lit-html). 
 
-This library is using the way tagged template strings work to create streaming response bodies on the fly,
+This library is using tagged template strings to create _streaming response bodies_ on the fly,
 using no special template syntax and giving you the full power of JS for composition. 
 
+### Exmaples
 String interpolation works just like regular template strings,
-but all content is sanitized by default.
+but all content is sanitized by default:
 
 ```ts
 const helloWorld = 'Hello World!';
@@ -75,16 +76,17 @@ function handleRequest(event: FetchEvent) {
 self.addEventListener('fetch', ev => ev.respondWith(handleRequest(ev)));
 ```
 
-Note that this works regardless of worker environment: Cloudflare Workers, Service Workers in the browser, and hopefully other worker environments that have yet to be implemented.
+Note that this works regardless of worker environment: Cloudflare Workers, Service Workers in the browser, and hopefully other [worker environments](https://workers.js.org) that have yet to be implemented.
 
-Since the use of tagged string literals for HTML is not new (see above), there exists tooling for syntax highlighting, such as [`lit-html` in VSCode](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html).
+### Tooling
+Since the use of tagged string literals for HTML is not new (see hyperHTML, lit-html), there exists tooling for syntax highlighting, such as [`lit-html` in VSCode](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html).
 
 
 ## Streaming Responses
 
 As a side effect of this approach, responses are streams by default. This means you can use async data, without delaying sending the headers and HTML content. 
 
-In this example, everything up to and including `<p>The current time is` will be sent immediately:
+In the example below, everything up to and including `<p>The current time is` will be sent immediately, with the reset sent after the API request completes:
 
 ```ts
 function handleRequest(event: FetchEvent) {
@@ -116,11 +118,13 @@ function handleRequest(event: FetchEvent) {
 }
 ```
 
-Note that there are some subtle differences here (these follow from the way async/await works):
+Note that there are some subtle differences compared to the earlier examples. 
 - The initial response will include headers and html up to and including `<h1>Hello World!</h1>`
 - The time API request will not be sent until the headers and html up to and including `<h1>Hello World!</h1>` have hit the wire.
 
-If for any reason you don't want to use streaming response bodies, you can import the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
+These follow from the way async/await works, so shouldn't be too surprising to those already familiar with common async/await pitfalls.
+
+If for any reason you don't want to use streaming response bodies, you can use the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
 You can combine this library with tools from the [@worker-tools family of tools](https://github.com/worker-tools) such as `@worker-tools/response-creators`:
