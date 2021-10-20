@@ -10,7 +10,7 @@ Templating is done purely in JavaScript using tagged template strings, inspired 
 This library is using tagged template strings to create _streaming response bodies_ on the fly,
 using no special template syntax and giving you the full power of JS for composition. 
 
-### Exmaples
+### Examples
 String interpolation works just like regular template strings,
 but all content is sanitized by default:
 
