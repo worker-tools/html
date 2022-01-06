@@ -1,10 +1,10 @@
-import { escapeHtml } from './escape-html';
-// import { aInterleaveFlattenSecond, map } from './iter';
+import { sanitize } from 'dompurify';
+import { aInterleaveFlattenSecond, map } from './iter';
 
 type Primitive = undefined | boolean | number | string | bigint | symbol;
 type Callable<T> = T | (() => T);
 
-type Unpackable<T> =
+export type Unpackable<T> =
   | T 
   | Iterable<T> 
   | Iterable<Promise<T>>
@@ -18,8 +18,8 @@ type Unpackable<T> =
   | Promise<AsyncIterable<Iterable<T>>>
   | Promise<AsyncIterable<Iterable<Promise<T>>>>
 
-type Renderable = null | Exclude<Primitive, symbol> | HTML | UnsafeHTML | Fallback;
-type HTMLContentStatic = Unpackable<Renderable>;
+export type Renderable = null | Exclude<Primitive, symbol> | HTML | UnsafeHTML | Fallback;
+export type HTMLContentStatic = Unpackable<Renderable>;
 export type HTMLContent = Callable<HTMLContentStatic>;
 
 const isIterable = <T>(x?: unknown): x is (object & Iterable<T>) => 
@@ -43,7 +43,7 @@ async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator
       yield* unpackContent(xi);
     }
   } else {
-    yield escapeHtml(x);
+    yield sanitize(x as string);
   }
 }
 
@@ -70,23 +70,9 @@ export class HTML extends AbstractHTML {
     this.args = args;
   }
 
-  async *[Symbol.asyncIterator](): AsyncIterableIterator<string> {
-    const stringsIt = this.strings[Symbol.iterator]();
-    const argsIt = this.args[Symbol.iterator]();
-    while (true) {
-      const { done: stringDone, value: string } = stringsIt.next() as IteratorYieldResult<string>;
-      if (stringDone) break;
-      else yield string;
-
-      const { done: argDone, value: arg } = argsIt.next() as IteratorYieldResult<HTMLContent>;
-      if (argDone) break;
-      else yield* unpack(arg);
-    }
+  async *[Symbol.asyncIterator]() {
+    return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
   }
-
-  // async *[Symbol.asyncIterator]() {
-  //   return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
-  // }
 }
 
 export class UnsafeHTML extends AbstractHTML {

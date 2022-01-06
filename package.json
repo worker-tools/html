@@ -29,11 +29,13 @@
   "author": "Florian Klampfer <mail@qwtel.com> (https://qwtel.com/)",
   "license": "MIT",
   "devDependencies": {
+    "@types/dompurify": "^2.3.2",
     "shx": "^0.3.3",
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "whatwg-stream-to-async-iter": "github:qwtel/whatwg-stream-to-async-iter"
+    "dompurify": "^2.3.4",
+    "whatwg-stream-to-async-iter": "^0.3.3"
   },
   "repository": {
     "type": "git",
