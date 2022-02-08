@@ -70,8 +70,21 @@ export class HTML extends AbstractHTML {
     this.args = args;
   }
 
-  async *[Symbol.asyncIterator]() {
-    return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
+  // async *[Symbol.asyncIterator]() {
+  //   return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
+  // }
+  async *[Symbol.asyncIterator](): AsyncIterableIterator<string> {
+    const stringsIt = this.strings[Symbol.iterator]();
+    const argsIt = this.args[Symbol.iterator]();
+    while (true) {
+      const { done: stringDone, value: string } = stringsIt.next() as IteratorYieldResult<string>;
+      if (stringDone) break;
+      else yield string;
+
+      const { done: argDone, value: arg } = argsIt.next() as IteratorYieldResult<HTMLContent>;
+      if (argDone) break;
+      else yield* unpack(arg);
+    }
   }
 }
 

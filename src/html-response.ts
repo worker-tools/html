@@ -4,7 +4,7 @@ import { aMap, aJoin, promiseToAsyncIterable } from './iter';
 import { HTML } from './html';
 
 // Other worker envs don't provide the `default` key in caches, so we use it to distinguish CF Workers.
-const isCFWorkers = 'caches' in self && 'default' in self.caches;
+const isCFWorkers = !('TextEncoderStream' in self)
 
 class DefaultHTMLResponse extends Response {
   static contentType = 'text/html;charset=UTF-8';
