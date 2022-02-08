@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "dompurify": "^2.3.5",
-    "whatwg-stream-to-async-iter": "^0.3.3"
+    "whatwg-stream-to-async-iter": "^0.4.1"
   },
   "repository": {
     "type": "git",
