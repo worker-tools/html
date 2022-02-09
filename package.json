@@ -1,6 +1,6 @@
 {
   "name": "@worker-tools/html",
-  "version": "2.0.0-pre.3",
+  "version": "2.0.0-pre.4",
   "description": "HTML templating and streaming response library for worker environments such as Cloudflare Workers",
   "type": "module",
   "main": "index.js",
