@@ -1,6 +1,6 @@
 {
   "name": "@worker-tools/html",
-  "version": "1.3.3",
+  "version": "2.0.0-pre.0",
   "description": "HTML templating and streaming response library for worker environments such as Cloudflare Workers",
   "type": "module",
   "main": "index.js",
@@ -20,7 +20,7 @@
     "access": "public"
   },
   "scripts": {
-		"postinstall": "[ -f index.js ] || npm run build",
+    "postinstall": "[ -f index.js ] || npm run build",
     "clean": "shx rm -f *.d.ts *.js *.js.map *.d.ts.map",
     "test": "shx echo \"Error: no test specified\" && shx exit 0",
     "build": "tsc -d",
