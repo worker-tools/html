@@ -1,9 +1,7 @@
-import './text-encoder-stream-polyfill';
 import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
 import { aMap, aJoin, promiseToAsyncIterable } from './iter';
 import { HTML } from './html';
 
-// Other worker envs don't provide the `default` key in caches, so we use it to distinguish CF Workers.
 const isCFWorkers = !('TextEncoderStream' in self) 
   || !('ReadableStream' in self) 
   || !('pipeThrough' in ReadableStream.prototype)
