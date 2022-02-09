@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -24,14 +23,13 @@ jobs:
         with:
           version: 6
           run_install: true
-      - run: pnpm test
+      - run: npm test
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with: { fetch-depth: 0 }
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -42,7 +40,7 @@ jobs:
         with:
           version: 6
           run_install: true
-      - run: pnpm publish
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
