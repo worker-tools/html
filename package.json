@@ -20,6 +20,7 @@
     "access": "public"
   },
   "scripts": {
+		"postinstall": "[ -f index.js ] || npm run build",
     "clean": "shx rm -f *.d.ts *.js *.js.map *.d.ts.map",
     "test": "shx echo \"Error: no test specified\" && shx exit 0",
     "build": "tsc -d",
