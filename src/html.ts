@@ -1,5 +1,5 @@
-import { sanitize } from 'dompurify';
-import { aInterleaveFlattenSecond, map } from './iter';
+import { escapeHtml } from './escape-html';
+// import { aInterleaveFlattenSecond, map } from './iter';
 
 type Primitive = undefined | boolean | number | string | bigint | symbol;
 type Callable<T> = T | (() => T);
@@ -43,7 +43,7 @@ async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator
       yield* unpackContent(xi);
     }
   } else {
-    yield sanitize(x as string);
+    yield escapeHtml(x);
   }
 }
 

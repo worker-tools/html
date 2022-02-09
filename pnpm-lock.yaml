@@ -1,32 +1,18 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@types/dompurify': ^2.3.3
-  dompurify: ^2.3.5
   shx: ^0.3.4
   typescript: ^4.5.5
   whatwg-stream-to-async-iter: ^0.4.1
 
 dependencies:
-  dompurify: 2.3.5
   whatwg-stream-to-async-iter: 0.4.1
 
 devDependencies:
-  '@types/dompurify': 2.3.3
   shx: 0.3.4
   typescript: 4.5.5
 
 packages:
-
-  /@types/dompurify/2.3.3:
-    resolution: {integrity: sha512-nnVQSgRVuZ/843oAfhA25eRSNzUFcBPk/LOiw5gm8mD9/X7CNcbRkQu/OsjCewO8+VIYfPxUnXvPEVGenw14+w==}
-    dependencies:
-      '@types/trusted-types': 2.0.2
-    dev: true
-
-  /@types/trusted-types/2.0.2:
-    resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
-    dev: true
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -42,10 +28,6 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
-
-  /dompurify/2.3.5:
-    resolution: {integrity: sha512-kD+f8qEaa42+mjdOpKeztu9Mfx5bv9gVLO6K9jRx4uGvh6Wv06Srn4jr1wPNY2OOUGGSKHNFN+A8MA3v0E0QAQ==}
-    dev: false
 
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}

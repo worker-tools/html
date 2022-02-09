@@ -28,12 +28,10 @@
   "author": "Florian Klampfer <mail@qwtel.com> (https://qwtel.com/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/dompurify": "^2.3.3",
     "shx": "^0.3.4",
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "dompurify": "^2.3.5",
     "whatwg-stream-to-async-iter": "^0.4.1"
   },
   "repository": {
