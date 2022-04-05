@@ -1,4 +1,4 @@
-import { asyncIterableToStream } from 'https://raw.githubusercontent.com/qwtel/whatwg-stream-to-async-iter/master/index.ts';
+import { asyncIterableToStream } from 'https://ghuc.cc/qwtel/whatwg-stream-to-async-iter/index.ts';
 import { aMap, aJoin, promiseToAsyncIterable } from './iter.ts';
 import type { HTML } from './html.ts';
 

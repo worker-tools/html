@@ -43,10 +43,10 @@ await build({
   packageManager: 'pnpm',
   compilerOptions: {
     sourceMap: true,
-    target: 'ES2021'
+    target: 'ES2019'
   },
   mappings: {
-    "https://raw.githubusercontent.com/qwtel/whatwg-stream-to-async-iter/master/index.ts": {
+    "https://ghuc.cc/qwtel/whatwg-stream-to-async-iter/index.ts": {
       name: "whatwg-stream-to-async-iter",
       version: "^0.4.3",
     },
