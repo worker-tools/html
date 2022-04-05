@@ -20,7 +20,6 @@
     "access": "public"
   },
   "scripts": {
-    "postinstall": "[ -f index.js ] || npm run build",
     "clean": "rm -f *.d.ts *.js *.js.map *.d.ts.map",
     "test": "echo \"Warning: no test specified\" && exit 0",
     "build": "tsc -d",
