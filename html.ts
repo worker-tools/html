@@ -1,4 +1,6 @@
-import { escapeHtml } from './escape-html';
+// deno-lint-ignore-file ban-types no-explicit-any
+
+import { escapeHtml } from 'https://deno.land/x/escape_html@1.0.0/mod.ts';
 // import { aInterleaveFlattenSecond, map } from './iter';
 
 type Primitive = undefined | boolean | number | string | bigint | symbol;
@@ -7,7 +9,7 @@ type Callable<T> = T | (() => T);
 export type Unpackable<T> =
   | T 
   | Iterable<T> 
-  | Iterable<Promise<T>>
+  | Iterable<Promise<T>> // isn't this the same as an async 0iterable?
   | Promise<T> 
   | Promise<Iterable<T>> 
   | Promise<Iterable<Promise<T>>>
@@ -43,7 +45,7 @@ async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator
       yield* unpackContent(xi);
     }
   } else {
-    yield escapeHtml(x);
+    yield escapeHtml(x as string);
   }
 }
 
@@ -61,21 +63,21 @@ export abstract class AbstractHTML {
 }
 
 export class HTML extends AbstractHTML {
-  strings: TemplateStringsArray;
-  args: HTMLContent[];
+  #strings: TemplateStringsArray;
+  #args: HTMLContent[];
 
   constructor(strings: TemplateStringsArray, args: HTMLContent[]) {
     super();
-    this.strings = strings;
-    this.args = args;
+    this.#strings = strings;
+    this.#args = args;
   }
 
   // async *[Symbol.asyncIterator]() {
   //   return aInterleaveFlattenSecond(this.strings, map(unpack)(this.args));
   // }
   async *[Symbol.asyncIterator](): AsyncIterableIterator<string> {
-    const stringsIt = this.strings[Symbol.iterator]();
-    const argsIt = this.args[Symbol.iterator]();
+    const stringsIt = this.#strings[Symbol.iterator]();
+    const argsIt = this.#args[Symbol.iterator]();
     while (true) {
       const { done: stringDone, value: string } = stringsIt.next() as IteratorYieldResult<string>;
       if (stringDone) break;
@@ -92,30 +94,30 @@ export class HTML extends AbstractHTML {
 }
 
 export class UnsafeHTML extends AbstractHTML {
-  value: string;
-  constructor(value: string) { super(); this.value = value || ' ' }
-  async *[Symbol.asyncIterator]() { yield this.value }
-  toString() { return this.value }
-  toJSON() { return this.value }
+  #value: string;
+  constructor(value: string) { super(); this.#value = value || ' ' }
+  async *[Symbol.asyncIterator]() { yield this.#value }
+  toString() { return this.#value }
+  toJSON() { return this.#value }
 }
 
 export class Fallback extends AbstractHTML {
-  content: HTMLContent;
-  fallback: HTML | ((e: any) => HTML);
+  #content: HTMLContent;
+  #fallback: HTML | ((e: any) => HTML);
 
   constructor(content: HTMLContent, fallback: HTML | ((e: any) => HTML)) {
     super();
-    this.content = content;
-    this.fallback = fallback;
+    this.#content = content;
+    this.#fallback = fallback;
   }
 
   async *[Symbol.asyncIterator]() {
     try {
-      yield* unpack(this.content)
+      yield* unpack(this.#content)
     } catch (e) {
-      yield* typeof this.fallback === 'function'
-        ? this.fallback(e)
-        : this.fallback
+      yield* typeof this.#fallback === 'function'
+        ? this.#fallback(e)
+        : this.#fallback
     }
   }
 }

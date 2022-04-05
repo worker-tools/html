@@ -1,8 +1,9 @@
-import { asyncIterableToStream } from 'whatwg-stream-to-async-iter';
-import { aMap, aJoin, promiseToAsyncIterable } from './iter';
-import { HTML } from './html';
+import { asyncIterableToStream } from 'https://raw.githubusercontent.com/qwtel/whatwg-stream-to-async-iter/master/index.ts';
+import { aMap, aJoin, promiseToAsyncIterable } from './iter.ts';
+import type { HTML } from './html.ts';
 
-const isCFWorkers = !('TextEncoderStream' in self) 
+const isCFWorkers = (<any>self.navigator)?.userAgent?.includes('Cloudflare-Workers')
+  || !('TextEncoderStream' in self) 
   || !('ReadableStream' in self) 
   || !('pipeThrough' in ReadableStream.prototype)
 
