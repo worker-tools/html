@@ -30,7 +30,7 @@ const isAsyncIterable = <T>(x?: unknown): x is (object & AsyncIterable<T>) =>
 
 async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator<string> {
   const x = await content;
-  if (x == null || x === '') {
+  if (x == null || x === '' || x === false) {
     yield ' ';
   } else if (x instanceof AbstractHTML) {
     yield* x;
