@@ -85,6 +85,9 @@ export class HTML extends AbstractHTML {
       if (argDone) break;
       else yield* unpack(arg);
     }
+    const { done: stringDone, value: string } = stringsIt.next() as IteratorYieldResult<string>;
+    if (stringDone) return;
+    else yield string;
   }
 }
 
