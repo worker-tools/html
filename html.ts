@@ -1,7 +1,6 @@
 // deno-lint-ignore-file ban-types no-explicit-any
 
 import { escapeHtml } from 'https://deno.land/x/escape_html@1.0.0/mod.ts';
-// import { aInterleaveFlattenSecond, map } from './iter';
 
 type Primitive = undefined | boolean | number | string | bigint | symbol;
 type Callable<T> = T | (() => T);
