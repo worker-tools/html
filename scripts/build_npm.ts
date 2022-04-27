@@ -46,9 +46,9 @@ await build({
     target: 'ES2019'
   },
   mappings: {
-    "https://ghuc.cc/qwtel/whatwg-stream-to-async-iter/index.ts": {
-      name: "whatwg-stream-to-async-iter",
-      version: "^0.4.3",
+    "https://ghuc.cc/worker-tools/stream-response/index.ts": {
+      name: "@worker-tools/stream-response",
+      version: "^0.1.0-pre.0",
     },
   },
 });

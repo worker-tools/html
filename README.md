@@ -1,4 +1,4 @@
-# @worker-tools/html
+# Worker HTML
 
 [HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like environments such as Cloudflare Workers.
 
