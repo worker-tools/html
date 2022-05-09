@@ -27,6 +27,6 @@ export class BufferedHTMLResponse extends BufferedStreamResponse {
   constructor(html: HTML, { headers: _headers, ...init }: ResponseInit = {}) {
     const headers = new Headers(_headers);
     if (!headers.has(CONTENT_TYPE)) headers.set(CONTENT_TYPE, BufferedHTMLResponse.contentType);
-    super(html, init);
+    super(html, { headers, ...init });
   }
 }
