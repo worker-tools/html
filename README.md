@@ -1,6 +1,6 @@
 # Worker HTML
 
-[HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like environments such as Cloudflare Workers.
+[HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like runtimes such as Cloudflare Workers.
 
 
 ## HTML Templating
@@ -76,7 +76,7 @@ function handleRequest(event: FetchEvent) {
 self.addEventListener('fetch', ev => ev.respondWith(handleRequest(ev)));
 ```
 
-Note that this works regardless of worker environment: Cloudflare Workers, Service Workers in the browser, and hopefully other [worker environments](https://workers.js.org) that have yet to be implemented.
+Note that this works regardless of worker environment: Cloudflare Workers, Service Workers in the browser, and hopefully other [worker runtimes](https://workers.js.org) that have yet to be implemented.
 
 ### Tooling
 Since the use of tagged string literals for HTML is not new (see hyperHTML, lit-html), there exists tooling for syntax highlighting, such as [`lit-html` in VSCode](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html).
