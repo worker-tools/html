@@ -32,7 +32,7 @@ const isAsyncIterable = <T>(x?: unknown): x is (object & AsyncIterable<T>) =>
 async function* unpackContent(content: HTMLContentStatic): AsyncIterableIterator<string> {
   const x = await content;
   if (x == null || x === '' || x === false) {
-    yield ' ';
+    yield '';
   } else if (x instanceof AbstractHTML) {
     yield* x;
   } else if (isIterable(x)) {
@@ -94,7 +94,7 @@ export class HTML extends AbstractHTML {
 
 export class UnsafeHTML extends AbstractHTML {
   #value: string;
-  constructor(value: string) { super(); this.#value = value || ' ' }
+  constructor(value: string) { super(); this.#value = value || '' }
   async *[Symbol.asyncIterator]() { yield this.#value }
   toString() { return this.#value }
   toJSON() { return this.#value }
