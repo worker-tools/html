@@ -1,6 +1,6 @@
 # Worker HTML
 
-[HTML templating](#html-templating) and [streaming response](#streaming-responses) library for Service Worker-like runtimes such as Cloudflare Workers.
+[HTML templating](#html-templating) and [streaming response](#streaming-responses) library for [Worker Runtimes](https://workers.js.org) such as Cloudflare Workers.
 
 
 ## HTML Templating
@@ -76,7 +76,7 @@ function handleRequest(event: FetchEvent) {
 self.addEventListener('fetch', ev => ev.respondWith(handleRequest(ev)));
 ```
 
-Note that this works regardless of worker environment: Cloudflare Workers, Service Workers in the browser, and hopefully other [worker runtimes](https://workers.js.org) that have yet to be implemented.
+Note that this works regardless of worker runtime: Cloudflare Workers, Service Workers in the browser, and hopefully other [Worker Runtimes](https://workers.js.org) that have yet to be implemented.
 
 ### Tooling
 Since the use of tagged string literals for HTML is not new (see hyperHTML, lit-html), there exists tooling for syntax highlighting, such as [`lit-html` in VSCode](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html).
@@ -127,7 +127,7 @@ These follow from the way async/await works, so shouldn't be too surprising to t
 If for any reason you don't want to use streaming response bodies, you can use the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
-You can combine this library with tools from the [@worker-tools family of tools](https://github.com/worker-tools) such as `@worker-tools/response-creators`:
+You can combine this library with tools from the [Worker Tools family](https://workers.tolls) such as `@worker-tools/response-creators`:
 
 ```ts
 import { internalServerError } from '@worker-tools/response-creators';
@@ -140,6 +140,6 @@ function handleRequest(event: FetchEvent) {
 }
 ```
 
-You can also see the [Clap Button Worker](https://github.com/getclaps/worker) source code for an example of how to build an entire web app on the edge using Cloudflare Workers and @worker-tools tools, including @worker-tools/html.
+You can also see the [Worker News source code](https://github.com/worker-tools/worker-news) for an example of how to build an entire web app on the edge using Worker HTML.
 
 Finally, you can read [The Joys and Perils of Writing Plain Old Web Apps](https://qwtel.com/posts/software/the-joys-and-perils-of-writing-plain-old-web-apps/) for a personal account of building web apps in a Web 2.0 way. 
