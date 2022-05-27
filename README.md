@@ -147,10 +147,9 @@ Finally, you can read [The Joys and Perils of Writing Plain Old Web Apps](https:
 --------
 
 <p align="center"><a href="https://workers.tools"><img src="https://workers.tools/assets/img/logo.svg" width="100" height="100" /></a>
-<h2 align="center">Part of <a href="https://workers.tools">Worker Tools</a></h2>
-<p align="center"><small>This module is part of the Worker Tools collection.</small><br/>⁕
+<p align="center">This module is part of the Worker Tools collection<br/>⁕
 
-Worker Tools are a collection of TypeScript libraries for writing web servers in [Worker Runtimes](https://workers.js.org) such as Cloudflare Workers, Deno Deploy and Service Workers. 
+[Worker Tools](https://workers.tools) are a collection of TypeScript libraries for writing web servers in [Worker Runtimes](https://workers.js.org) such as Cloudflare Workers, Deno Deploy and Service Workers in the browser. 
 
 If you liked this module, you might also like:
 
