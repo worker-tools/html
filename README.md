@@ -144,7 +144,11 @@ You can also see the [Worker News source code](https://github.com/worker-tools/w
 
 Finally, you can read [The Joys and Perils of Writing Plain Old Web Apps](https://qwtel.com/posts/software/the-joys-and-perils-of-writing-plain-old-web-apps/) for a personal account of building web apps in a Web 2.0 way.
 
+<br/>
+
 --------
+
+<br/>
 
 <p align="center"><a href="https://workers.tools"><img src="https://workers.tools/assets/img/logo.svg" width="100" height="100" /></a>
 <p align="center">This module is part of the Worker Tools collection<br/>⁕
