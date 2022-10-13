@@ -127,7 +127,7 @@ These follow from the way async/await works, so shouldn't be too surprising to t
 If for any reason you don't want to use streaming response bodies, you can use the `BufferedHTMLResponse` instead, which will buffer the entire body before releasing it to the network.
 
 ## See Other
-You can combine this library with tools from the [Worker Tools family](https://workers.tolls) such as `@worker-tools/response-creators`:
+You can combine this library with tools from the [Worker Tools family](https://workers.tools) such as `@worker-tools/response-creators`:
 
 ```ts
 import { internalServerError } from '@worker-tools/response-creators';
